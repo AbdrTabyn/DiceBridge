@@ -1,25 +1,18 @@
 package dice.adapter;
-
 import dice.implementor.RandomSource;
 import dice.implementor.RandomSourceException;
 import dice.legacy.DiceTowerDevice;
-
 /**
  * ADAPTER: makes DiceTowerDevice usable as a RandomSource (Concrete Implementor #3).
- *
  * Translates:
  *  - call:    nextInt(min, max)            -> rollRaw(sides, "STD") with sides = max - min + 1
  *  - result:  0-based index                -> min + index
  *  - errors:  sentinel codes -1 / -2       -> RandomSourceException with a source-neutral message
- *
  * This is the ONLY class that knows DiceTowerDevice, its constants and its error codes.
  */
 public class DiceTowerAdapter implements RandomSource {
-
     private static final String MODE = "STD";
-
     private final DiceTowerDevice tower;
-
     public DiceTowerAdapter(DiceTowerDevice tower) {
         this.tower = tower;
     }
@@ -27,10 +20,8 @@ public class DiceTowerAdapter implements RandomSource {
     @Override
     public int nextInt(int min, int max) {
         RandomSource.requireValidRange(min, max);
-
         long sides = (long) max - min + 1;
         long raw = tower.rollRaw(sides, MODE);
-
         if (raw == DiceTowerDevice.ERR_JAMMED) {
             throw new RandomSourceException("Random source is temporarily unavailable");
         }

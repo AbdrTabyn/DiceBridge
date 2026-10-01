@@ -1,5 +1,4 @@
 package dice.abstraction;
-
 import dice.implementor.RandomSource;
 import org.junit.jupiter.api.Test;
 
@@ -17,9 +16,7 @@ class RollTest {
     @Test
     void damageRollSumsDiceAndAddsBonus() {
         when(source.nextInt(1, 6)).thenReturn(3, 4);
-
         int result = new DamageRoll(source, 2, 6, 1).roll();
-
         assertEquals(8, result);                       // 3 + 4 + 1
         verify(source, times(2)).nextInt(1, 6);        // delegated once per die
     }
@@ -27,9 +24,7 @@ class RollTest {
     @Test
     void advantageRollKeepsTheHigherOfTwoD20() {
         when(source.nextInt(1, 20)).thenReturn(7, 15);
-
         int result = new AdvantageRoll(source).roll();
-
         assertEquals(15, result);
         verify(source, times(2)).nextInt(1, 20);
     }

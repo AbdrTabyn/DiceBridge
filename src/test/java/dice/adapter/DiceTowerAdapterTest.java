@@ -13,10 +13,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 /** The adapted implementation: parameter/result translation and failure translation, with a STUBBED tower. */
 class DiceTowerAdapterTest {
-
     private final DiceTowerDevice tower = mock(DiceTowerDevice.class);
     private final DiceTowerAdapter adapter = new DiceTowerAdapter(tower);
 
@@ -25,7 +23,6 @@ class DiceTowerAdapterTest {
     @Test
     void convertsRangeToSidesAndZeroBasedIndexToValue() {
         when(tower.rollRaw(6, "STD")).thenReturn(2L);          // index 2 on a six-sided die
-
         assertEquals(3, adapter.nextInt(1, 6));                // 1 + 2
         verify(tower).rollRaw(6, "STD");
     }
@@ -34,7 +31,6 @@ class DiceTowerAdapterTest {
     @Test
     void jammedSentinelBecomesRandomSourceException() {
         when(tower.rollRaw(anyLong(), anyString())).thenReturn(DiceTowerDevice.ERR_JAMMED);
-
         RandomSourceException e = assertThrows(RandomSourceException.class, () -> adapter.nextInt(1, 6));
         assertEquals("Random source is temporarily unavailable", e.getMessage());
     }
@@ -43,7 +39,6 @@ class DiceTowerAdapterTest {
     void invalidTowerResultsBecomeRandomSourceException() {
         when(tower.rollRaw(anyLong(), anyString()))
                 .thenReturn(DiceTowerDevice.ERR_BAD_REQUEST);
-
         assertThrows(
                 RandomSourceException.class,
                 () -> adapter.nextInt(1, 6)
@@ -54,10 +49,8 @@ class DiceTowerAdapterTest {
     @Test
     void abstractionSeesOnlyContractExceptionWhenTowerFails() {
         when(tower.rollRaw(anyLong(), anyString())).thenReturn(DiceTowerDevice.ERR_JAMMED);
-
         RandomSourceException e = assertThrows(RandomSourceException.class,
                 () -> new AdvantageRoll(adapter).roll());
-
         assertFalse(e.getMessage().toLowerCase().contains("tower"));
         assertFalse(e.getMessage().toLowerCase().contains("jam"));
     }

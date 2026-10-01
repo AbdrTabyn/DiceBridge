@@ -1,10 +1,7 @@
 package dice.implementor;
-
 import java.security.SecureRandom;
-
 /** Concrete Implementor #2: cryptographically strong randomness (unpredictable, "no cheating" mode). */
 public class SecureRandomSource implements RandomSource {
-
     private final SecureRandom random = new SecureRandom();
 
     @Override
