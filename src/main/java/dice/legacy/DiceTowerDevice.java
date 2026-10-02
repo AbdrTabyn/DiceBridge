@@ -2,14 +2,7 @@ package dice.legacy;
 
 import java.util.Random;
 
-/**
- * ADAPTEE. Pretend this is a third-party driver for a physical dice tower.
- * Why it is incompatible with RandomSource:
- *  - method name:   rollRaw, not nextInt
- *  - parameters:    (long sides, String mode), not (int min, int max)
- *  - result:        0-based index 0.sides-1, not a value in [min, max]
- *  - failures:      sentinel values -1 / -2, never exceptions
- */
+/** ADAPTEE. Pretend this is a third-party driver for a physical dice tower.*/
 public class DiceTowerDevice {
     public static final long ERR_JAMMED = -1;
     public static final long ERR_BAD_REQUEST = -2;
@@ -17,7 +10,6 @@ public class DiceTowerDevice {
 
     private final Random random;
     private boolean jammed;
-
     public DiceTowerDevice() {
         this(new Random());
     }
