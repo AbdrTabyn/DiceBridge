@@ -5,11 +5,10 @@ import dice.legacy.DiceTowerDevice;
 /**
  * ADAPTER: makes DiceTowerDevice usable as a RandomSource (Concrete Implementor #3).
  * Translates:
- *  - call:    nextInt(min, max)            -> rollRaw(sides, "STD") with sides = max - min + 1
- *  - result:  0-based index                -> min + index
- *  - errors:  sentinel codes -1 / -2       -> RandomSourceException with a source-neutral message
- * This is the ONLY class that knows DiceTowerDevice, its constants and its error codes.
- */
+ *  - call:    nextInt(min, max)
+ *  - result:  0-based index
+ *  - errors:  sentinel codes -1 / -2
+ *  */
 public class DiceTowerAdapter implements RandomSource {
     private static final String MODE = "STD";
     private final DiceTowerDevice tower;

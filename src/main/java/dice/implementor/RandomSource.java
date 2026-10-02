@@ -1,7 +1,6 @@
 package dice.implementor;
 /**
  * Implementor: where random numbers come from.
- * Contract:
  *  - returns a value in [min, max], both inclusive;
  *  - throws IllegalArgumentException if min > max (caller bug);
  *  - throws RandomSourceException if the source cannot deliver a value (runtime failure).
