@@ -1,5 +1,4 @@
 package dice.legacy;
-
 import java.util.Random;
 
 /** ADAPTEE. Pretend this is a third-party driver for a physical dice tower.*/
